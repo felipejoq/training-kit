@@ -53,7 +53,6 @@ export default {
 
           // Listen for task_updated event
           socket.on('task_updated', (task) => {
-            console.log({ task });
             this.$store.commit('update_task', task);
           });
         });
