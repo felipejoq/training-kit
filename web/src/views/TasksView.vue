@@ -229,13 +229,16 @@ export default {
 				status_id: this.loaders.status.value,
 			})
 			.then(response => {
-				const i = this.tasks.items.findIndex(task => task.id == item.id);
-				if (i != -1) {
+				const i = this.tasks.items.findIndex(task => task.id === item.id);
+				if (i !== -1) {
 					this.tasks.items[i].status_id = response.data.status_id;
 				}
 				this.loaders.status.loading = false;
 				this.loaders.status.id = null;
 				this.loaders.status.value = null;
+
+        const socket = this.$store.getters.websocket.socket;
+        socket.emit('task_update', response.data);
 			});
 		},
 		updateDeliveryDate() {

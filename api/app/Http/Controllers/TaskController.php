@@ -23,10 +23,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Models\Task;
 use App\Models\TaskStatus;
+use GuzzleHttp\Client;
+
 use Auth;
 
 class TaskController extends Controller
 {
+    private $client;
+
     public function browse(Request $request)
     {
         if ($request->filled('archived')) {
@@ -42,7 +46,7 @@ class TaskController extends Controller
                     return response()->json($items, 200);
                     break;
                 default:
-                
+
                     break;
             }
         } else {
@@ -50,7 +54,7 @@ class TaskController extends Controller
             if (!count($items)) return response()->json(['message' => 'No records'], 404);
             return response()->json($items, 200);
         }
-        
+
     }
 
     public function read(Request $request, $id = NULL)
@@ -154,10 +158,6 @@ class TaskController extends Controller
         if (!isset($task->id)) return response()->json(['message' => 'Not found'], 404);
         $task->status_id = intval($status_id);
         $task->save();
-
-        Http::post(env('WEBSOCKET_SERVER_URL') . '/task_updated', [
-            'task' => $task
-        ]);
 
         return response()->json($task, 200);
     }
