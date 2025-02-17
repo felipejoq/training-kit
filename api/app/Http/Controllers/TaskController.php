@@ -20,6 +20,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use App\Models\Task;
 use App\Models\TaskStatus;
 use Auth;
@@ -153,6 +154,10 @@ class TaskController extends Controller
         if (!isset($task->id)) return response()->json(['message' => 'Not found'], 404);
         $task->status_id = intval($status_id);
         $task->save();
+        // Emitir actualización de tarea al servidor WebSocket
+        Http::post(env('WEBSOCKET_SERVER_URL') . '/task_updated', [
+            'task' => $task
+        ]);
         return response()->json($task, 200);
     }
 

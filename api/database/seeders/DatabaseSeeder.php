@@ -34,6 +34,11 @@ class DatabaseSeeder extends Seeder
             'email' => 'debug@eniwer.dev',
         ]);
 
+        $user2 = User::factory()->create([
+            'name' => 'Cuenta Depuración 2',
+            'email' => 'debug2@eniwer.dev',
+        ]);
+
         $roles = [
             [ 'name' => 'Operación', 'codename' => 'user', 'description' => 'Permite ingresar nueva información al sistema.' ],
             [ 'name' => 'Supervisión', 'codename' => 'super', 'description' => 'Permite ver toda la información ingresada al sistema.' ],
@@ -43,6 +48,7 @@ class DatabaseSeeder extends Seeder
 
         foreach(Role::all() as $role) {
             UserRole::create([ 'role_id' => $role->id, 'user_id' => $user->id ]);
+            UserRole::create([ 'role_id' => $role->id, 'user_id' => $user2->id ]);
         }
         
         $this->call([

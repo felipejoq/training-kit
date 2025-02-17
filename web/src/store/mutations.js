@@ -1,21 +1,3 @@
-/*
-ETK - Eniwer Training Kit
-Copyright (C) 2025 Felipe Andrés Solís Albanese
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <https://www.gnu.org/licenses/>.
-*/
-
 export default {
 	access_token(state, data) {
 		state.session.api.loading = false;
@@ -25,7 +7,6 @@ export default {
 	},
 	save_websocket_token(state, payload) {
 		state.session.websocket.token = payload.token;
-		localStorage.setItem('websocket_token', payload.token);
 	},
 	save_socket(state, payload) {
 		state.session.websocket.socket = payload.socket;
@@ -125,4 +106,12 @@ export default {
 	AddClientModal(state, data) {
 		state.modals.AddClientModal = data
 	},
+	update_task(state, task) {
+		const index = state.tasks.items.findIndex(t => t.id === task.id);
+		if (index !== -1) {
+			state.tasks.items.splice(index, 1, task);
+		} else {
+			state.tasks.items.push(task);
+		}
+	}
 }
