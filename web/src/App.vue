@@ -121,6 +121,7 @@ export default {
                 <a class="nav-link" aria-current="page" href="#" @click="this.$router.push({ name: 'Tasks' })" :class="{ 'fw-bold' : this.$route.name == 'Tasks' }">Tareas</a>
               </li>
               <li class="nav-item">
+                <a class="nav-link" href="#" @click="this.$router.push({ name: 'Users' })" :class="{ 'fw-bold' : this.$route.name == 'Users' }">Sistema</a>
               </li>
             </ul>
             <div class="row">
