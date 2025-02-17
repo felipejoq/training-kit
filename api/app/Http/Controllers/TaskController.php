@@ -20,10 +20,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use App\Models\Task;
 use App\Models\TaskStatus;
-use GuzzleHttp\Client;
 
 use Auth;
 
