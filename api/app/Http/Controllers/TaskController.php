@@ -27,7 +27,6 @@ use Auth;
 
 class TaskController extends Controller
 {
-    private $client;
 
     public function browse(Request $request)
     {
